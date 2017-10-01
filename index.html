@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>New Kid on The Block</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+    <link type="text/css" rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo center">New Kid On The Block<span id="putCity"></span></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <li><a href="#">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col s6">
+                <div class="slider">
+                    <ul class="slides">
+                        <li>
+                            <img class="responsive-img" src="images/image3.jpg">
+                            <div class="caption center-align">
+                                <h3>Where will you land next?</h3>
+                            </div>
+                        </li>
+                        <li>
+                            <img class="responsive-img" src="images/image2.jpg">
+                            <div class="caption left-align">
+                                <h3>Explore your new home</h3>
+                            </div>
+                        </li>
+                        <li>
+                            <img class="responsive-img" src="images/image1.jpg">
+                            <div class="caption right-align">
+                                <h3>Meet new friends</h3>
+                            </div>
+                        </li>
+                        <li>
+                            <img class="responsive-img" src="images/image4.jpg">
+                            <div class="caption center-align">
+                                <h3>Have fun!</h3>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s6">
+                    <div class="card-panel grey">
+                        <span class="white-text">Hello,<br>new kid on the block. We know that moving to a new city can be stressful, and we are here to help. We have gathered resources to make you excited about your new home!
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+              <div class="col s12  card grey lighten-3">
+                  <h4 class="center-align">Tell us where your new home is!</h4>
+                  <div class="input-field col s6">
+                      <label for="address-input">Enter Address Line: </label>
+                      <input class="form-control" id="address-input" type="text" required>
+                  </div>
+                  <div class="input-field col s6">
+                      <label for="city-input">Enter City: </label>
+                      <input class="form-control" id="city-input" type="text" required>
+                  </div>
+                <div class="input-field col s6">
+                  <label for="state-input">Enter State (2-character ISO code): </label>
+                  <input class="form-control" id="state-input" type="text" required>
+                </div>
+                <div class="input-field col s6">
+                  <label for="zip-input">Enter Zip </label>
+                  <input class="form-control" id="zip-input" type="text" required>
+                </div>
+                  <div class="input-field col s6">
+                      <label for="date-input">When are you moving (mm/yyyy)? </label>
+                      <input class="form-control" id="date-input" type="text">
+                  </div>
+                    <!-- <button class="waves-effect waves-light btn center-align" id="letsGo" type="submit">Let's Go!</button> -->
+                  <div class="col s12 center-align section">
+                    <button class="btn waves-effect waves-light" id="letsGo" type="submit" name="action">Let's Go!<!-- <i class="material-icons right"></i> -->
+                    </button>
+                  </div>
+                  <div class="col s6">
+                    <br>
+
+                  </div>
+          </div>
+        </div>
+
+
+        <!-- <div class="row">
+            <div class="col s12">
+              <div class="row">
+                <form>
+                    <div class="form-group col s6">
+                        <label for="city-input">Enter City </label>
+                        <input class="form-control" id="city-input" type="text" required>
+                    </div>
+                    <div class="form-group col s6">
+                        <label for="month-input">Enter Month (Optional)</label>
+                        <input class="form-control" id="month-input" type="month">
+                    </div>
+                </form>
+              </div> -->
+
+              <!-- <button class="btn btn-default" id="letsGo" type="submit">Let's Go!</button> -->
+    </div>
+
+    <footer>
+        <div class="footer-copyright">
+            <div class="container2">
+                © 2017 Copyright Text
+                <!-- <a class="grey-text text-lighten-4 right" href="#!">Link</a> -->
+            </div>
+        </div>
+    </footer>
+</body>
+    <!-- jQuery is required by Materialize to function -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+    <script type="text/javascript" src ="userForm.js">
+
+
+    //custom JS code
+    </script>
+
+
+</html>

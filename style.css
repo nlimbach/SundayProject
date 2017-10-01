@@ -1,0 +1,32 @@
+.slider {
+	margin-top: 40px;
+}
+.brand-logo {
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	
+}
+ a {
+ font-family: "Comic Sans MS", cursive, sans-serif;
+ }
+
+.card-panel {
+	margin-top: 40px;
+	width: 485.75px;
+	height: 400px;
+
+}
+
+.white-text {
+	font-family: 'Avenir Next', 'AvenirNextLTW01-Regular', 'Avenir Next W01 Light', Helvetica, sans-serif;
+	font-size: 30px;
+	text-align: justify;
+}
+
+.btn {
+	text-align: center;
+}
+
+.responsive-image{
+
+	height:200px;
+}
