@@ -30,3 +30,14 @@
 
 	height:200px;
 }
+.nav-wrapper h5 {
+	font-size: 20px;
+	line-height: 120%;
+	margin: 20px;
+	text-align: center;
+	padding: 20px;
+	font-family: "Comic Sans MS", cursive, sans-serif;
+}
+nav ul a {
+	margin-right: 20px;
+}
