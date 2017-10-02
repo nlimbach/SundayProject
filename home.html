@@ -6,86 +6,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link type="text/css" rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 </head>
-<body>
+<body class ="grey lighten-3">
 
-    <nav>
+    <nav class="nav-extended cyan darken-2">
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo center">New Kid On The Block: <span id="putCity"></span></a>
+            <h5 id ="addWeather">Welcome, </h5>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-              <li><a href="index.html">Home</a></li>
             </ul>
         </div>
     </nav>
+
+
 <!-- <div id="imageButtons"> -->
         <!-- The below images will serve as buttons for the user to select which recommendations they want to see-->
-<div class="container">
-    <!-- <h1><span id="inputCity"></span></h1> -->
-    <div class="row">
-        <div class="col s12 m4">
-            <div class="card medium">
-                <div class="card-image">
-                    <img class="responsive-image" src = "images/explore.jpeg" alt = "Explore" id="exploreImage">
-                 </div>
-                <div class="card-content center flow-text">
-                    <p>Explore!</p>
-                    <div>
-                        <a class='dropdown-button btn center flow-text' href='#' data-activates='ExploreDropDown'>Explore!</a>
+    <div class="container">
+        <!-- <h1><span id="inputCity"></span></h1> -->
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="card medium">
+                    <div class="card-image">
+                        <img class="responsive-image" src = "images/explore.jpeg" alt = "Explore" id="exploreImage">
+                     </div>
+                    <div class="card-content center flow-text">
+                        <p>Explore!</p>
+                        <div>
+                            <a class='dropdown-button btn center flow-text cyan darken-2' href='#' data-activates='ExploreDropDown'>Explore!</a>
 
-                        <!-- Dropdown Structure -->
-                        <ul id='ExploreDropDown' class='dropdown-content'>
+                            <!-- Dropdown Structure -->
+                            <ul id='ExploreDropDown' class='dropdown-content'>
 
 
-                        </ul>
+                            </ul>
 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col s12 m4">
-            <div class="card medium">
-                <div class="card-image">
-                    <img class="responsive-image" src = "images/meetup.jpg" alt = "Find Friends" id="MeetPeople">
-                </div>
-                <div class="card-content center flow-text">
-                    <p>Meet new people!</p>
-                    <div>
-                        <a class='dropdown-button btn center flow-text' href='#' data-activates='meetUpDropDown'>Socialize!</a>
+            <div class="col s12 m4">
+                <div class="card medium">
+                    <div class="card-image">
+                        <img class="responsive-image" src = "images/meetup.jpg" alt = "Find Friends" id="MeetPeople">
+                    </div>
+                    <div class="card-content center flow-text">
+                        <p>Meet new people!</p>
+                        <div>
+                            <a class='dropdown-button btn center flow-text cyan darken-2' href='#' data-activates='meetUpDropDown'>Socialize!</a>
 
-                        <!-- Dropdown Structure -->
-                        <ul id='meetUpDropDown' class='dropdown-content'>
+                            <!-- Dropdown Structure -->
+                            <ul id='meetUpDropDown' class='dropdown-content'>
 
 
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col s12 m4">
-            <div class="card medium">
-                <div class="card-image">
-                    <img class="responsive-image" src = "images/job.jpeg" alt = "Find a Job" id="FindJob">
-                    <!-- <span class="card-title">Find Restaurants</span> -->
-                </div>
-                <div class="card-content center flow-text">
-                    <p>Find a Job!</p>
-                    <div>
-                        <a class='dropdown-button btn center flow-text' href='#' data-activates='jobDropDown'>Find Job!</a>
+            <div class="col s12 m4">
+                <div class="card medium">
+                    <div class="card-image">
+                        <img class="responsive-image" src = "images/job.jpeg" alt = "Find a Job" id="FindJob">
+                        <!-- <span class="card-title">Find Restaurants</span> -->
+                    </div>
+                    <div class="card-content center flow-text">
+                        <p>Find a Job!</p>
+                        <div>
+                            <a class='dropdown-button btn center flow-text cyan darken-2' href='#' data-activates='jobDropDown'>Find a Job!</a>
 
-                        <!-- Dropdown Structure -->
-                        <ul id='jobDropDown' class='dropdown-content'>
+                            <!-- Dropdown Structure -->
+                            <ul id='jobDropDown' class='dropdown-content '>
 
 
-                        </ul>
+                            </ul>
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
     <div class="row">
         <div class="col s12 center flow-text">
             <div class="weather">
@@ -102,7 +104,7 @@
             then this div will populate with real estate recommendations. If they select find friends after real estate, the real estate options will be
             replaced by meetup options-->
 
-            <ul id = " insertRecommendationsHere" class="collapsible" data-collapsible="accordion">
+            <ul id = "insertRecommendationsHere" >
 
             </ul>
         </div>
@@ -122,6 +124,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+
     <script type="text/javascript" src ="logic.js">
 
     //custom JS code

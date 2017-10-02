@@ -6,13 +6,14 @@ var address = localStorage.getItem("address");
 var city = localStorage.getItem("city");
 var state = localStorage.getItem("state");
 var zip = localStorage.getItem("zip");
-var month = localStorage.getItem("month");
+var name = localStorage.getItem("name");
 var latitude;
 var longitude;
 var MeetUpCategories = ["sports-fitness","arts-culture","beliefs","book-clubs","career-business","dancing","parents-family","fashion-beauty","film","food","health-wellness","hobbies-crafts","lgbtq","language","education","movements","music","outdoors-adventure","pets","photography","games-sci-fi","social","tech","writing"];
 var exploreCategories = ["restaurants","museums","movies","coffee","fun","nightlife","shopping","hiking","sports","outdoors","gyms"];
 var jobCategories = ["developer","marketing","designer","sales","systems+analyst","business+analyst","systems+engineer","ERP"];
 var radius = 25;
+
 
 
 //NL Run google geocode API to retrieve latitude and longitude from user's address
@@ -63,35 +64,35 @@ for (i = 0; i < exploreCategories.length; i++) {
 for (i = 0; i < jobCategories.length; i++) {
 
     var newItem = $("<li>");
+    var job = jobCategories[i];
+    job = job.split('+').join(' ');
     newItem.addClass("findJob");
-    newItem.html("<a href= '#!'>" + jobCategories[i] + "</a>");
+    newItem.html("<a href= '#!'>" + job + "</a>");
     $("#jobDropDown").append(newItem);
 
 }
 //End drop down menu categories
 
 //EP - Weather Underground API
-jQuery(document).ready(function($) {
-
-    $.ajax({
-        url : "http://api.wunderground.com/api/b2f01d8788315282/geolookup/conditions/q/PA/Sewickley.json",
-        dataType : "jsonp"
-    })
-        .done(function(response){
-            console.log('response: ', response);
-            var location = response.location.city;
-            console.log('location: ', location);
-            var temp_f = response.current_observation.temp_f;
-            console.log('temp_f: ', temp_f);
+$.ajax({
+    url : "http://api.wunderground.com/api/b2f01d8788315282/geolookup/conditions/q/" + state + "/" + city +".json",
+    dataType : "jsonp"
+})
+    .done(function(response){
+        console.log('response: ', response);
+        var location = response.location.city;
+        console.log('location: ', location);
+        var temp_f = response.current_observation.temp_f;
+        console.log('temp_f: ', temp_f);
 
 
-            //make var name=   ; - after grabbing info from the form
-            $("#putName").append(name);
-            $("#addWeather").append("Current temperature in " + location + " is: " + temp_f +  "F");
-            console.log ("Current temperature in " + location + " is: " + temp_f +  "F");
-        });
+        //make var name=   ; - after grabbing info from the form
+        $("#addWeather").append(name);
+        $("#addWeather").append("<br>");
+        $("#addWeather").append("Current temperature in " + location + " is: " + temp_f +  "F");
+        console.log ("Current temperature in " + location + " is: " + temp_f +  "F");
+    });
 
-});
 
 var insertRecommendationsHere = $("#insertRecommendationsHere")
 
@@ -134,7 +135,7 @@ $('.findJob').click(function(){
         console.log(response);
 
 
-        for (i=0; i < 10; i++) {
+        for (i = 0; i < 10; i++) {
             var results = response.resultItemList[i];
             var url = results.detailUrl;
             var jobTitle = results.jobTitle;
@@ -149,29 +150,22 @@ $('.findJob').click(function(){
             console.log(postedDate);
 
 
+            var addHeader = $("<div>");
+            var addBody = $("<div>");
+            var addLi = $("<li>");
+            addHeader.addClass("collapsible-header");
+            addBody.addClass("collapsible-body");
+            addHeader.text(jobTitle + " - " + location);
 
-           //
-           // insertRecommendationsHere.addClass("collapsible");
-           // insertRecommendationsHere.attr("data-collapsible","accordion");
+             addBody.text("Company: " + company + "&crarr;" + url + "<br> <br /> <br/> </br> Posted:" + postedDate);
 
+            addBody.append(text(url));
+            addLi.append(addHeader);
+            addLi.append(addBody);
 
-            // var addHeader = $("<div>");
-            // var addBody = $("<div>");
-            //
-            // addHeader.addClass("collapsible-header");
-            // addBody.addClass("collapsible-body");
-            // addHeader.text(jobTitle);
-            // console.log(addHeader);
-            // console.log("test" + jobTitle);
-            // addBody.text(company);
-
-
-            $("#insertRecommendationsHere").append('<li><div class ="collapsible-header">TEST</div>  <div class ="collapsible-body">TEST AGAIN</div>');
-
+            $("#insertRecommendationsHere").append(addLi);
         }
-
-
-    });
+    })
 });
 
 
