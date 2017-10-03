@@ -1,13 +1,6 @@
 $(document).ready(function() {
     $('.slider').slider();
 
-    $.validator.setDefaults({
-        // submitHandler: function() {
-        //     alert("submitted!");
-        // }
-    });
-
-    // $().ready(function() {
 
     $("#form").validate({
         rules: {
@@ -37,7 +30,10 @@ $(document).ready(function() {
                 }
             }
         }
-    })
+
+    });
+
+
 
     var config = {
         apiKey: "AIzaSyCDcC5j0NdM18LWvAaBkkHSQwVtWwYU_-g",
@@ -74,7 +70,6 @@ $(document).ready(function() {
 
         var zip = $("#zip-input").val().trim();
         localStorage.setItem("zip", zip);
-
 
 
 
