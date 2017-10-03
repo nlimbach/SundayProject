@@ -116,7 +116,7 @@ $(document).ready(function() {
         var getCategory = $(this).text();
         var fourSquareKEY = "KY3TA5KDHJ2GSHB33L24MFU53CL2POJKG1MTTXQGB12BVVQP";
         var fourSquareSecret = "21VI4B3WJIDL2MHIW2EB5IJOQGTGHQK4PQGNRML4RCAZDQZZ";
-        var fourSquareURL = "https://api.foursquare.com/v2/venues/explore?ll=" + latitude + "," + longitude + "&radius=10000&client_id=" + fourSquareKEY + "&client_secret=" + fourSquareSecret + "&v=20171015&intent=browse&limit=15&query=" + getCategory;
+        var fourSquareURL = "https://api.foursquare.com/v2/venues/explore?ll=" + latitude + "," + longitude +"&radius=10000&client_id=" + fourSquareKEY + "&client_secret=" + fourSquareSecret + "&v=20171015&intent=browse&limit=15&query=" + getCategory;
 
         $.ajax({
             url: fourSquareURL,
@@ -128,12 +128,7 @@ $(document).ready(function() {
             console.log(items);
             var venue = items.venue;
 
-            var addUL = $("<ul>");
-            addUL.addClass("collapsible");
-            addUL.attr("data-collapsible","accordion");
-            $("#insertRecommendationsHere").append(addUL);
-
-            for (var i = 0; i < items.length; i++) {
+            for(var i = 0; i < items.length; i++) {
                 //JSON.parse(JSON.stringify(venues[i]));
 
                 var addLi = $("<li>");
@@ -147,9 +142,9 @@ $(document).ready(function() {
                 //addLi.css("width", "75%");
                 addLi.css("display", "block");
 
+                $("#title").append(addLi);
                 addLi.append(addHeader);
                 addLi.append(addBody);
-                addUL.append(addLi);
 
                 $(addLi).prepend("<h5>" + items[i]["venue"].name + "</h5>");
 
@@ -166,6 +161,7 @@ $(document).ready(function() {
                 $(addBody).append("<h6>" + "Price: " + items[i]["venue"].price.message + "</h6>");
 
                 $(addBody).append("<a>" + items[i]["venue"].url + "</a>");
+
             }
 
         });

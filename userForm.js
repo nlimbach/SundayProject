@@ -22,11 +22,8 @@ $(document).ready(function() {
         //add buttons for each category in MeetUpCategories
 
         //if you comment the next five lines, the validation is different
-        ("#name").empty()
-        ("#address").empty()
-        ("#city").empty()
-        ("#state").empty()
-        ("#zip").empty()
+        $(".red-text").empty()
+
 
 
         event.preventDefault();
@@ -70,7 +67,7 @@ $(document).ready(function() {
             $("#city").append("<div class ='red-text'> City is a required field</div>")
         }
 
-        if ($("#state-input").val().length == 2) {
+        if ($("#state-input").val().length == 2 ) {
             state = $("#state-input").val().trim();
             state = state.split(' ').join('+');
             validateState = true;
@@ -80,7 +77,7 @@ $(document).ready(function() {
             $("#state").append("<div class ='red-text'> A two character state is a required field</div>")
         }
 
-        if ($("#zip-input").val().length == 5 ) {
+        if ($("#zip-input").val().length == 5 && validate.isInteger($("#zip-input"))) {
             zip = $("#zip-input").val().trim();
             validateZip = true;
             localStorage.setItem("zip", zip);
@@ -89,9 +86,6 @@ $(document).ready(function() {
         } else{
             $("#zip").append("<div class ='red-text'>A five digit zip code is required</div>")
         }
-
-
-
 
 
 
