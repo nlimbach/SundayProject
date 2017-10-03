@@ -68,6 +68,10 @@ tbody{
 tbody tr:hover {
 	background-color: #0197a6 !important;
 
+
+}
+tbody tr:link {
+	color: #0197a6;
 }
 thead{
 	font-size: 18px;
@@ -79,4 +83,5 @@ thead{
 
 th tr {
 	border-bottom: 1px solid #ddd
+
 }
