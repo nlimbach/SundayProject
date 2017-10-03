@@ -70,61 +70,52 @@
     <div class ="container">
         <div class="row">
             <div class="col s12  card">
-                <h4 class="center-align cyan-text text-darken-2">Tell us where your new home is!</h4>
-                <div class="col s3">
-                </div>
-                <div class="input-field col s6">
-                    <label for="name-input">First Name: </label>
-                    <input class="form-control " id="name-input" type="text" required>
-                </div>
+                <form id ="form">
+                    <h4 class="center-align cyan-text text-darken-2">Tell us where your new home is!</h4>
 
-                <div class="input-field col s6">
-                    <label for="address-input">Enter Address Line: </label>
-                    <input class="form-control " id="address-input" type="text" required>
-                </div>
-                <div class="input-field col s6">
-                    <label for="city-input">Enter City: </label>
-                    <input class="form-control" id="city-input" type="text" required>
-                </div>
-                <div class="input-field col s6">
-                    <label for="state-input">Enter State (2-character ISO code): </label>
-                    <input class="form-control" id="state-input" type="text" required>
-                </div>
-                <div class="input-field col s6">
-                    <label for="zip-input">Enter Zip </label>
-                    <input class="form-control" id="zip-input" type="text" required>
-                </div>
+                    <div class="col s3">
+                    </div>
 
-                <!-- <button class="waves-effect waves-light btn center-align" id="letsGo" type="submit">Let's Go!</button> -->
-                <div class="col s12 center-align section">
-                    <button class="btn waves-effect waves-light cyan darken-2" id="letsGo" type="submit" name="action">Let's Go!<!-- <i class="material-icons right"></i> -->
-                    </button>
-                </div>
-                <div class="col s6">
-                    <br>
+                    <div class="input-field col s6">
+                        <label for="name-input" data-error="Please enter your name">First Name: </label>
+                        <input class="form-control " id="name-input" name ="fname" type="text" required>
+                    </div>
 
-                </div>
+                    <div class="input-field col s6">
+                        <label for="address-input" data-error="Please enter your address">Enter Address Line: </label>
+                        <input class="form-control " id="address-input" name="address" type="text" required>
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label for="city-input" data-error="Please enter a city">Enter City: </label>
+                        <input class="form-control" id="city-input" name="city" type="text" required>
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label for="state-input" data-error="Please enter a valid 2 character ISO state">Enter State (2-character ISO code): </label>
+                        <input class="form-control" id="state-input" name ="state" type="text" required>
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label for="zip-input" data-error="Please enter a valid zip code">Enter Zip </label>
+                        <input class="form-control" id="zip-input" name="zip" type="text" required>
+                    </div>
+
+                    <!-- <button class="waves-effect waves-light btn center-align" id="letsGo" type="submit">Let's Go!</button> -->
+                    <div class="col s12 center-align section">
+                        <button class="btn waves-effect waves-light cyan darken-2" id="letsGo" type="submit" name="action">Let's Go!
+                        </button>
+                    </div>
+                    <div class="col s6">
+                        <br>
+
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <!-- <div class="row">
-        <div class="col s12">
-          <div class="row">
-            <form>
-                <div class="form-group col s6">
-                    <label for="city-input">Enter City </label>
-                    <input class="form-control" id="city-input" type="text" required>
-                </div>
-                <div class="form-group col s6">
-                    <label for="month-input">Enter Month (Optional)</label>
-                    <input class="form-control" id="month-input" type="month">
-                </div>
-            </form>
-          </div> -->
 
-    <!-- <button class="btn btn-default" id="letsGo" type="submit">Let's Go!</button> -->
-</div>
 
 <footer>
     <div class="footer-test footer-copyright cyan darken-2 white-text" class="container2">
@@ -134,15 +125,17 @@
 </body>
 <!-- jQuery is required by Materialize to function -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
+<script src= "https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 
 <script type="text/javascript" src ="userForm.js">
+    //custom JS code
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
 
 
     //custom JS code
-</script>
 
 
 </html>

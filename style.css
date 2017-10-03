@@ -58,3 +58,25 @@ nav ul a {
 	padding-left: 40px;
 	padding-right:40px;
 }
+
+tbody{
+	font-size: 12px;
+	border: 1px solid black;
+	color: black;
+
+}
+tbody tr:hover {
+	background-color: #0197a6 !important;
+
+}
+thead{
+	font-size: 18px;
+	background-color: #0197a6;
+	border: 1px solid black;
+
+
+}
+
+th tr {
+	border-bottom: 1px solid #ddd
+}

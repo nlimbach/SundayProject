@@ -1,6 +1,44 @@
 $(document).ready(function() {
     $('.slider').slider();
 
+    $.validator.setDefaults({
+        // submitHandler: function() {
+        //     alert("submitted!");
+        // }
+    });
+
+    // $().ready(function() {
+
+    $("#form").validate({
+        rules: {
+            fname: "required",
+            city: "required",
+            address: "required",
+            state: {
+                required: true,
+                minlength: 2
+            },
+            zip: {
+                required: true,
+                minlength: 5
+            },
+
+            messages: {
+                fname: "Please enter your first name",
+                city: "Please enter your city",
+                address: "Please enter your address",
+                state: {
+                    required: "Please provide your state",
+                    minlength: "Your state must be 2 characters"
+                },
+                zip: {
+                    required: "Please provide your zipcode",
+                    minlength: "Your zipcode must be 5 digits"
+                }
+            }
+        }
+    })
+
     var config = {
         apiKey: "AIzaSyCDcC5j0NdM18LWvAaBkkHSQwVtWwYU_-g",
         authDomain: "new-kid-on-the-block-3ba2b.firebaseapp.com",
@@ -38,16 +76,43 @@ $(document).ready(function() {
         localStorage.setItem("zip", zip);
 
 
-        var newEntry = {
-            name: name,
+
+
+            var newEntry = {
             city: city
-        };
+        }
 
-        database.ref().push(newEntry);
-        console.log(newEntry.name);
-        console.log(newEntry.city);
+        database.ref("cities").push(newEntry);
 
+
+
+        database.ref().orderByChild("dateAdded").on("child_added", function(snapshot) {
+            // storing the snapshot.val() in a variable for convenience
+            var sv = snapshot.val();
+
+            var getCity = sv.city;
+
+            if(getCity === city){
+                clickCounter++;
+
+            }
+
+
+
+
+
+
+            // Handle the errors
+        }, function(errorObject) {
+            console.log("Errors handled: " + errorObject.code);
+        });
+
+
+        localStorage.setItem("TotalCount", clickCounter);
+        console.log(clickCounter);
         //redirect to homepage.
         window.location.replace("home.html");
+
     })
-});
+
+})
