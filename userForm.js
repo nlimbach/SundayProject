@@ -1,8 +1,7 @@
 $(document).ready(function() {
+
+   //EP Elena got slider to work and firebase storing values
     $('.slider').slider();
-
-
-
 
     var config = {
         apiKey: "AIzaSyCDcC5j0NdM18LWvAaBkkHSQwVtWwYU_-g",
@@ -12,10 +11,12 @@ $(document).ready(function() {
         storageBucket: "new-kid-on-the-block-3ba2b.appspot.com",
         messagingSenderId: "216603995189"
     };
+
     firebase.initializeApp(config);
 
     var database = firebase.database();
 
+    //NL did userform and data validation
 
     $("#letsGo").on("click", function (event) {
         //add buttons for each category in MeetUpCategories
@@ -87,18 +88,16 @@ $(document).ready(function() {
         }
 
 
-        var clickCounter = 0;
 
 
+        //EP save city to firebase
         var newEntry = {
             city: city
         }
 
         database.ref().push(newEntry);
 
-
-
-
+        // NL - if all validations meet requirements then redirect to next page
 
         if (validateName && validateAddress && validateCity && validateState && validateZip) {
             window.location.replace("home.html");

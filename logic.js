@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
 
-//initialize variables
+// EP - initialize firebase
     var config = {
         apiKey: "AIzaSyCDcC5j0NdM18LWvAaBkkHSQwVtWwYU_-g",
         authDomain: "new-kid-on-the-block-3ba2b.firebaseapp.com",
@@ -13,6 +13,7 @@ $(document).ready(function() {
 
     firebase.initializeApp(config);
 
+//initialize variables
     var database = firebase.database();
     var address = localStorage.getItem("address");
     var city = localStorage.getItem("city");
@@ -27,99 +28,99 @@ $(document).ready(function() {
     var radius = 25;
     var clickCounter = 0;
 
-    //EP Display Images
+    //EP Display Images using masonry.js
 
     var ajaxModule = function(){};
-    ajaxModule.prototype = {
-        iterator: 1,
-        masonryTimeoutClear: "",
+        ajaxModule.prototype = {
+            iterator: 1,
+            masonryTimeoutClear: "",
 
-        init: function(request, callback) {
-            var self = this;
+            init: function(request, callback) {
+                var self = this;
 
-            self.iterator++;
+                self.iterator++;
 
-            request = encodeURIComponent(request.trim());
-            this.callAjax(request, callback);
+                request = encodeURIComponent(request.trim());
+                this.callAjax(request, callback);
 
-            $(".wrapper").html("").hide();
-            // $(".loading").show();
-        },
+                $(".wrapper").html("").hide();
+                // $(".loading").show();
+            },
 
-        callAjax: function(request, callback) {
-            var self = this;
+            callAjax: function(request, callback) {
+                var self = this;
 
-            var ajaxRequest = $.ajax({
-                url: "https://pixabay.com/api/?username=epozhiltsova01&key=6597467-0968f6256430f97ec5a721957&q=" + request + "&image_type=photo",
-                success: function(response) {
-                    self.parseResponse(response);
-                },
-                error: function(response) {
-                    console.log(response);
+                var ajaxRequest = $.ajax({
+                    url: "https://pixabay.com/api/?username=epozhiltsova01&key=6597467-0968f6256430f97ec5a721957&q=" + request + "&image_type=photo",
+                    success: function(response) {
+                        self.parseResponse(response);
+                    },
+                    error: function(response) {
+                        console.log(response);
+                    }
+                })
+
+                ajaxRequest.then(function() {
+                    if(callback) {
+                        callback();
+                    }
+                })
+            },
+
+            parseResponse: function(response) {
+                var self = this;
+
+                //console.log(response.hits);
+                $.each(response.hits, function(index, value) {
+                    $(".wrapper").prepend("<div class='image image" + index + "' style='width:" + (value.webformatWidth * .75) + "px; height:" + (value.webformatHeight * .75) + "px; background: url(" + value.webformatURL + ");'><a href='" + value.pageURL + "' target='_blank'><div class='overlay'></div></a><div class='hidden'></div></div>");
+                    // $(".image"+index+" .hidden").append("<div>User: <b>" + value.user + "</b></div><div>Tags: <b>" + value.tags + "</b></div><div class='stats'><i class='fa fa-eye'></i> <b>" + value.views + "</b> &nbsp; <i class='fa fa-thumbs-o-up'></i> <b>" + value.likes + "</b></div><div class='direct-links'><a href='" + value.webformatURL + "' target='_blank'><i class='fa fa-link'></i>  Direct Link</a> <a href='" + value.webformatURL + "' download><i class='fa fa-download'></i> Download</a></div>");
+                    // $(".image"+index+" .hidden").append("<div class='direct-links'><a href='" + value.webformatURL + "' target='_blank'><i class='fa fa-link'></i>  Direct Link</a> <a href='" + value.webformatURL + "' download><i class='fa fa-download'></i> Download</a></div>");
+                });
+
+                clearTimeout(self.masonryTimeoutClear);
+                self.masonryTimeoutClear = setTimeout(self.runMasonry, 500);
+            },
+
+            runMasonry: function() {
+                //destroy and then rebuild it
+                if($(".wrapper").masonry().length > -1) {
+                    $(".wrapper").masonry("destroy");
                 }
-            })
 
-            ajaxRequest.then(function() {
-                if(callback) {
-                    callback();
-                }
-            })
-        },
+                $(".wrapper").masonry({
+                    itemSelector: '.image',
+                    isFitWidth: true,
+                    gutter: 0
+                });
 
-        parseResponse: function(response) {
-            var self = this;
-
-            //console.log(response.hits);
-            $.each(response.hits, function(index, value) {
-                $(".wrapper").prepend("<div class='image image" + index + "' style='width:" + (value.webformatWidth * .75) + "px; height:" + (value.webformatHeight * .75) + "px; background: url(" + value.webformatURL + ");'><a href='" + value.pageURL + "' target='_blank'><div class='overlay'></div></a><div class='hidden'></div></div>");
-                // $(".image"+index+" .hidden").append("<div>User: <b>" + value.user + "</b></div><div>Tags: <b>" + value.tags + "</b></div><div class='stats'><i class='fa fa-eye'></i> <b>" + value.views + "</b> &nbsp; <i class='fa fa-thumbs-o-up'></i> <b>" + value.likes + "</b></div><div class='direct-links'><a href='" + value.webformatURL + "' target='_blank'><i class='fa fa-link'></i>  Direct Link</a> <a href='" + value.webformatURL + "' download><i class='fa fa-download'></i> Download</a></div>");
-                // $(".image"+index+" .hidden").append("<div class='direct-links'><a href='" + value.webformatURL + "' target='_blank'><i class='fa fa-link'></i>  Direct Link</a> <a href='" + value.webformatURL + "' download><i class='fa fa-download'></i> Download</a></div>");
-            });
-
-            clearTimeout(self.masonryTimeoutClear);
-            self.masonryTimeoutClear = setTimeout(self.runMasonry, 500);
-        },
-
-        runMasonry: function() {
-            //destroy and then rebuild it
-            if($(".wrapper").masonry().length > -1) {
-                $(".wrapper").masonry("destroy");
+                // $(".loading").hide();
+                $(".wrapper").show();
             }
-
-            $(".wrapper").masonry({
-                itemSelector: '.image',
-                isFitWidth: true,
-                gutter: 0
-            });
-
-            // $(".loading").hide();
-            $(".wrapper").show();
         }
-    }
 
-    var newModule = new ajaxModule();
+        var newModule = new ajaxModule();
 
-    $(function() {
-        //newModule.init("", callback);
-        newModule.init(city);
-    })
-
-    var timeoutClear;
-    // $(".searchInput").keyup(function() {
-    var keyword = $(this).val().toLowerCase();
-
-    clearTimeout(timeoutClear);
-    timeoutClear = setTimeout(function() {
-
-        if(city || !city === "undefined") {
+        $(function() {
+            //newModule.init("", callback);
             newModule.init(city);
-        }
-    },1000);
+        })
+
+        var timeoutClear;
+        // $(".searchInput").keyup(function() {
+        var keyword = $(this).val().toLowerCase();
+
+        clearTimeout(timeoutClear);
+        timeoutClear = setTimeout(function() {
+
+            if(city || !city === "undefined") {
+                newModule.init(city);
+            }
+        },1000);
 
 
 
 
-//NL Run google geocode API to retrieve latitude and longitude from user's address
+//NL Run google geocode API to retrieve latitude and longitude from user's address. This is needed for meetup API
 
     var geoCodeURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + ",+" + city + ",+" + state + "&key=AIzaSyDB3dL-UoNQrilY--0ze7PI_s4bKmnwQZQ";
     console.log(geoCodeURL);
@@ -154,27 +155,17 @@ $(document).ready(function() {
             clickCounter++;
         }
 
-        console.log("getCity" + getCity);
-        console.log("ctiy" + city);
-        console.log(clickCounter)
+
 
         // Handle the errors
     }, function(errorObject) {
         console.log("Errors handled: " + errorObject.code);
     });
 
-    console.log("Test outside of loop" + clickCounter);
-
-
-
-
-
-
-
-
 
 
     //NL Populate Drop Down menus with categories
+
     for (i = 0; i < MeetUpCategories.length; i++) {
 
         var newItem = $("<li>");
@@ -205,7 +196,9 @@ $(document).ready(function() {
     }
     //End drop down menu categories
 
-    //EP - Weather Underground API
+
+
+    //EP - Weather Underground API. Add weather and name to header of page
     $.ajax({
         url: "http://api.wunderground.com/api/b2f01d8788315282/geolookup/conditions/q/" + state + "/" + city + ".json",
         dataType: "jsonp"
@@ -224,15 +217,13 @@ $(document).ready(function() {
             $("#addWeather").append("Current temperature in " + location + " is: " + temp_f + "F");
             console.log("Current temperature in " + location + " is: " + temp_f + "F");
 
-            if(clickCounter > 2) {
 
-                $("#insertFirebase").append(clickCounter + " other people are moving to " + city + "!");
-            }
-        });
+            $("#insertFirebase").append(clickCounter + " other people are moving to " + city + "!");
+    });
 
 
 
-
+    //Nicola - called meetup API, Charlie - display Meetup Api
     $('.meetup').click(function () {
         $("#title").empty()
         var getCategory = $(this).text();
@@ -306,7 +297,7 @@ $(document).ready(function() {
         });
     });
 
-
+    //charlie - call and display foursquare api
     $(".explore").on("click", function () {
         $("#title").empty()
         var getCategory = $(this).text();
@@ -383,6 +374,8 @@ $(document).ready(function() {
         });
 
     });
+
+    //nicola call api (charlie and nicola worked together to display API)
     $('.findJob').click(function () {
         //put find job api here.
         $("#title").empty();
@@ -434,9 +427,7 @@ $(document).ready(function() {
         })
     });
 
-
-
-})
+});
 
 
 
