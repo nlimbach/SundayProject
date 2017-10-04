@@ -247,11 +247,65 @@ $(document).ready(function() {
         }).done(function (response) {
             console.log(response);
 
+            for(var i = 0; i < 20; i++) {
+                var results = response.data[i];
+                console.log(results);
+                var name = results.name;
+                var groupName = results.group.name;
+                var location = results.group.localized_location;
+                var url = results.link;
+                var description = results.description;
+                console.log(url);
+                var addLi = $("<li>");
+                var addHeader = $("<div>");
+                var addBody = $("<div>");
+                addHeader.addClass("collapsible-header");
+                addHeader.css("color", "black");
+                addBody.addClass("collapsible-body");
+                //addLi.addClass("cyan darken-2")
+                addLi.css("text-align", "center");
+                addLi.css("padding", "5px");
+                //addLi.css("width", "75%");
+                addLi.css("display", "block");
+                addLi.css("background-color", "#0197a6");
+                addLi.css("color", "white");
 
+                $(addHeader).html("<h5>" + groupName + "</h5>");
+
+                $(addBody).append("<h6>" + name + "</h6>");
+                console.log(url);
+                $(addBody).append("<a href='" + url + "'>website</a>");
+
+                $(addBody).append("<h6>" + location + "</h6>");
+
+                //Yo here is the shit I'm trying to get to work. Basically it would be dope to have a modal that displays the extended description of the group.
+                //I'm seeing the button but I can't figure out how to make it fire.
+                //$(addBody).append(
+
+                //     "<button data-target='modal1' class='btn modal-trigger'>open</button>" +
+                // //"<a class='waves-effect waves-light btn modal-trigger' href='#modal-content'>open</a>" +
+                //     "<div id='modal1' class='modal'>" +
+                //         "<div id='modal-content'>" +
+                //             "<h4></h4>" +
+                //             "<p>" + description + "</p>" +
+                //         "</div>"+
+                //     "<div class='modal-footer'>" +
+                //     "<button data-target='modal1' class='btn modal-trigger'>close</button>" +
+                //     "</div>"+
+                //     "</div>");
+                // $("#btn").on("click", function(){
+                //     $('#modal1').modal();
+                //     $('#modal1').modal('open');
+                // });
+
+                $("#title").append(addLi);
+                addLi.append(addHeader);
+                addLi.append(addBody);
+                //$('.collapsible').collapsible();
+            }
         });
-
-
     });
+
 
     $(".explore").on("click", function () {
         $("#title").empty()
