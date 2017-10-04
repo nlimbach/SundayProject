@@ -1,6 +1,19 @@
 
 $(document).ready(function() {
-    //initialize variables
+
+//initialize variables
+    var config = {
+        apiKey: "AIzaSyCDcC5j0NdM18LWvAaBkkHSQwVtWwYU_-g",
+        authDomain: "new-kid-on-the-block-3ba2b.firebaseapp.com",
+        databaseURL: "https://new-kid-on-the-block-3ba2b.firebaseio.com",
+        projectId: "new-kid-on-the-block-3ba2b",
+        storageBucket: "new-kid-on-the-block-3ba2b.appspot.com",
+        messagingSenderId: "216603995189"
+    };
+
+    firebase.initializeApp(config);
+
+    var database = firebase.database();
     var address = localStorage.getItem("address");
     var city = localStorage.getItem("city");
     var state = localStorage.getItem("state");
@@ -12,9 +25,101 @@ $(document).ready(function() {
     var exploreCategories = ["restaurants", "museums", "movies", "coffee", "fun", "nightlife", "shopping", "hiking", "sports", "outdoors", "gyms"];
     var jobCategories = ["developer", "marketing", "designer", "sales", "systems+analyst", "business+analyst", "systems+engineer", "ERP"];
     var radius = 25;
+    var clickCounter = 0;
+
+    //EP Display Images
+
+    var ajaxModule = function(){};
+    ajaxModule.prototype = {
+        iterator: 1,
+        masonryTimeoutClear: "",
+
+        init: function(request, callback) {
+            var self = this;
+
+            self.iterator++;
+
+            request = encodeURIComponent(request.trim());
+            this.callAjax(request, callback);
+
+            $(".wrapper").html("").hide();
+            // $(".loading").show();
+        },
+
+        callAjax: function(request, callback) {
+            var self = this;
+
+            var ajaxRequest = $.ajax({
+                url: "https://pixabay.com/api/?username=epozhiltsova01&key=6597467-0968f6256430f97ec5a721957&q=" + request + "&image_type=photo",
+                success: function(response) {
+                    self.parseResponse(response);
+                },
+                error: function(response) {
+                    console.log(response);
+                }
+            })
+
+            ajaxRequest.then(function() {
+                if(callback) {
+                    callback();
+                }
+            })
+        },
+
+        parseResponse: function(response) {
+            var self = this;
+
+            //console.log(response.hits);
+            $.each(response.hits, function(index, value) {
+                $(".wrapper").prepend("<div class='image image" + index + "' style='width:" + (value.webformatWidth * .75) + "px; height:" + (value.webformatHeight * .75) + "px; background: url(" + value.webformatURL + ");'><a href='" + value.pageURL + "' target='_blank'><div class='overlay'></div></a><div class='hidden'></div></div>");
+                // $(".image"+index+" .hidden").append("<div>User: <b>" + value.user + "</b></div><div>Tags: <b>" + value.tags + "</b></div><div class='stats'><i class='fa fa-eye'></i> <b>" + value.views + "</b> &nbsp; <i class='fa fa-thumbs-o-up'></i> <b>" + value.likes + "</b></div><div class='direct-links'><a href='" + value.webformatURL + "' target='_blank'><i class='fa fa-link'></i>  Direct Link</a> <a href='" + value.webformatURL + "' download><i class='fa fa-download'></i> Download</a></div>");
+                // $(".image"+index+" .hidden").append("<div class='direct-links'><a href='" + value.webformatURL + "' target='_blank'><i class='fa fa-link'></i>  Direct Link</a> <a href='" + value.webformatURL + "' download><i class='fa fa-download'></i> Download</a></div>");
+            });
+
+            clearTimeout(self.masonryTimeoutClear);
+            self.masonryTimeoutClear = setTimeout(self.runMasonry, 500);
+        },
+
+        runMasonry: function() {
+            //destroy and then rebuild it
+            if($(".wrapper").masonry().length > -1) {
+                $(".wrapper").masonry("destroy");
+            }
+
+            $(".wrapper").masonry({
+                itemSelector: '.image',
+                isFitWidth: true,
+                gutter: 0
+            });
+
+            // $(".loading").hide();
+            $(".wrapper").show();
+        }
+    }
+
+    var newModule = new ajaxModule();
+
+    $(function() {
+        //newModule.init("", callback);
+        newModule.init(city);
+    })
+
+    var timeoutClear;
+    // $(".searchInput").keyup(function() {
+    var keyword = $(this).val().toLowerCase();
+
+    clearTimeout(timeoutClear);
+    timeoutClear = setTimeout(function() {
+
+        if(city || !city === "undefined") {
+            newModule.init(city);
+        }
+    },1000);
 
 
-    //NL Run google geocode API to retrieve latitude and longitude from user's address
+
+
+//NL Run google geocode API to retrieve latitude and longitude from user's address
 
     var geoCodeURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + ",+" + city + ",+" + state + "&key=AIzaSyDB3dL-UoNQrilY--0ze7PI_s4bKmnwQZQ";
     console.log(geoCodeURL);
@@ -37,9 +142,39 @@ $(document).ready(function() {
     longitude = localStorage.getItem("longitude");
 
 
+    //NL add Firebase. Loop through each child and count how many times the city appears while incrementing count variable.
+    //count variable = amount of people moving to that city
+
+    database.ref().on("child_added", function(snapshot) {
+        // storing the snapshot.val() in a variable for convenience
+        var sv = snapshot.val();
+        var getCity = sv.city;
+
+        if(getCity === city){
+            clickCounter++;
+        }
+
+        console.log("getCity" + getCity);
+        console.log("ctiy" + city);
+        console.log(clickCounter)
+
+        // Handle the errors
+    }, function(errorObject) {
+        console.log("Errors handled: " + errorObject.code);
+    });
+
+    console.log("Test outside of loop" + clickCounter);
+
+
+
+
+
+
+
+
+
+
     //NL Populate Drop Down menus with categories
-
-
     for (i = 0; i < MeetUpCategories.length; i++) {
 
         var newItem = $("<li>");
@@ -88,10 +223,15 @@ $(document).ready(function() {
             $("#addWeather").append("<br>");
             $("#addWeather").append("Current temperature in " + location + " is: " + temp_f + "F");
             console.log("Current temperature in " + location + " is: " + temp_f + "F");
+
+            if(clickCounter > 2) {
+
+                $("#insertFirebase").append(clickCounter + " other people are moving to " + city + "!");
+            }
         });
 
 
-    var insertRecommendationsHere = $("#insertRecommendationsHere")
+
 
     $('.meetup').click(function () {
         $("#title").empty()
@@ -140,12 +280,13 @@ $(document).ready(function() {
                 var addHeader = $("<div>");
                 var addBody = $("<div>");
                 addHeader.addClass("collapsible-header");
+                addHeader.css("color", "black");
                 addBody.addClass("collapsible-body");
-                //addLi.addClass("cyan darken-2")
                 addLi.css("text-align", "center");
                 addLi.css("padding", "5px");
-                //addLi.css("width", "75%");
                 addLi.css("display", "block");
+                addLi.css("background-color", "#0197a6");
+                addLi.css("color", "white");
 
                 var url = items[i].venue.url;
                 var twitter = items[i].venue.contact.twitter;
@@ -159,7 +300,7 @@ $(document).ready(function() {
 
                 //$(addBody).append("<a>" + items[i].venue.categories[0].icon.prefix.suffix + "</a>");
                 if(twitter) {
-                    $(addBody).append("<h6>" + "Twitter: " + twitter + "</h6>");
+                    $(addBody).append("<h6>" + "@" + twitter + "</h6>");
                 }
 
 
@@ -190,51 +331,51 @@ $(document).ready(function() {
     });
     $('.findJob').click(function () {
         //put find job api here.
-        $("#title").empty()
+        $("#title").empty();
         var getCategory = $(this).text();
-
         var DiceURL = "http://service.dice.com/api/rest/jobsearch/v1/simple.json?text=" + getCategory + "&city=" + zip;
 
-        console.log(DiceURL);
         $.ajax({
             url: DiceURL,
             method: 'GET'
         }).done(function (response) {
-            console.log(response);
 
-            var addTable = $("<table>");
-            addTable.addClass("highlight striped");
+            for (var i = 0; i < 10; i++) {
+                var addLi = $("<li>");
+                var addHeader = $("<div>");
+                var addBody = $("<div>");
 
-            addTable.append("<thead> <tr>" +
-                "<th>" + "Job" +
-                "<th>" + "Company" +
-                "<th>" + "Location" +
-                "<th>" + "Posted Date" +
-                "<th>" + "Apply"
-            )
-            addTable.append("<tbody>");
-            $("#insertRecommendationsHere").append(addTable);
+                addHeader.addClass("collapsible-header");
+                addHeader.css("color", "black");
+                addBody.addClass("collapsible-body");
+                addLi.css("text-align", "center");
+                addLi.css("padding", "5px");
+                addLi.css("display", "block");
+                addLi.css("background-color", "#0197a6");
+                addLi.css("color", "white");
 
+                $("#title").append(addLi);
+                addLi.append(addHeader);
+                addLi.append(addBody);
 
-            for (i = 0; i < 10; i++) {
                 var results = response.resultItemList[i];
                 var url = results.detailUrl;
-                url = '"' + url + '"'
                 var jobTitle = results.jobTitle;
                 var location = results.location;
                 var company = results.company;
                 var postedDate = results.date;
 
+                $(addHeader).html("<h5>" + jobTitle + "</h5>");
 
-                addTable.append(
-                    "<tr>" +
-                    "<td>" + jobTitle +
-                    "<td>" + company +
-                    "<td>" + location +
-                    "<td>" + postedDate +
-                    "<td><a href=" + url + ">Apply!</a>"
-                );
+                $(addBody).append("<h6>" + company + "</h6>");
 
+                $(addBody).append("<h6>" + location + "</h6>");
+
+                $(addBody).append("<h6>" + postedDate + "</h6>");
+
+                $(addBody).append("<a href="+ url +">Apply!</a>");
+
+                $('.collapsible').collapsible();
             }
         })
     });

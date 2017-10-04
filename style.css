@@ -41,7 +41,14 @@
 body {
 	font-family: 'Raleway', sans-serif;
 }
-nav ul a {
+a {
+	margin-right: 20px;
+}
+a:link {
+	color: white;
+
+}
+nav ul {
 	margin-right: 20px;
 }
 
@@ -59,29 +66,6 @@ nav ul a {
 	padding-right:40px;
 }
 
-tbody{
-	font-size: 12px;
-	border: 1px solid black;
-	color: black;
-
-}
-tbody tr:hover {
-	background-color: #0197a6 !important;
-
-
-}
-tbody tr:link {
-	color: #0197a6;
-}
-thead{
-	font-size: 18px;
-	background-color: #0197a6;
-	border: 1px solid black;
-
-
-}
-
-th tr {
-	border-bottom: 1px solid #ddd
-
+.image {
+	margin: 10px;
 }

@@ -15,7 +15,6 @@ $(document).ready(function() {
     firebase.initializeApp(config);
 
     var database = firebase.database();
-    var clickCounter = 0;
 
 
     $("#letsGo").on("click", function (event) {
@@ -88,42 +87,17 @@ $(document).ready(function() {
         }
 
 
-
+        var clickCounter = 0;
 
 
         var newEntry = {
             city: city
         }
 
-        database.ref("cities").push(newEntry);
+        database.ref().push(newEntry);
 
 
 
-        database.ref().orderByChild("dateAdded").on("child_added", function(snapshot) {
-            // storing the snapshot.val() in a variable for convenience
-            var sv = snapshot.val();
-
-            var getCity = sv.city;
-
-            if(getCity === city){
-                clickCounter++;
-
-            }
-
-
-
-
-
-
-            // Handle the errors
-        }, function(errorObject) {
-            console.log("Errors handled: " + errorObject.code);
-        });
-
-
-        localStorage.setItem("TotalCount", clickCounter);
-        console.log(clickCounter);
-        //redirect to homepage.
 
 
         if (validateName && validateAddress && validateCity && validateState && validateZip) {
