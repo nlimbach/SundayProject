@@ -77,7 +77,7 @@ $(document).ready(function() {
             $("#state").append("<div class ='red-text'> A two character state is a required field</div>")
         }
 
-        if ($("#zip-input").val().length == 5 && validate.isInteger($("#zip-input"))) {
+        if ($("#zip-input").val().length == 5) {
             zip = $("#zip-input").val().trim();
             validateZip = true;
             localStorage.setItem("zip", zip);
